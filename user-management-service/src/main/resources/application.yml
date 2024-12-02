@@ -1,0 +1,44 @@
+server:
+  port: 8081 # Port on which this service runs
+
+spring:
+  application:
+    name: user-management-service
+  kafka:
+    consumer:
+      group-id: user-management-group
+      bootstrap-servers: localhost:9092
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/user_management # MongoDB connection URI
+  jackson:
+    default-property-inclusion: non_null # Ensures null values are not serialized
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*" # Exposes all actuator endpoints (can be limited)
+  health:
+    kafka:
+      enabled: true # Enables Kafka health check
+
+logging:
+  level:
+    root: INFO
+    org.springframework: DEBUG
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+
+# Custom configurations
+user-management:
+  default-role: USER

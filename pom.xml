@@ -22,11 +22,11 @@
 		<developer/>
 	</developers>
     <modules>
-        <module>kafka-Integration</module>
-		<module>catalog-management</module>
-		<module>user-management</module>
-        <module>OrderManagement</module>
+		<module>catalog-management-service</module>
+		<module>user-management-service</module>
+        <module>order-management-service</module>
 		<module>cart-management-service</module>
+		<module>shared-libraries</module>
 	</modules>
     <scm>
 		<connection/>

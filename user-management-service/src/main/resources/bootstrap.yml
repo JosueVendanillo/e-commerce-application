@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: user-management-service # Service name for all microservices
+  cloud:
+    config:
+      enabled: false # Disable config server for local setup
+      uri: http://localhost:8888 # Example URI if you enable Spring Cloud Config later
+      fail-fast: true # Fail application startup if config server is not reachable
+  profiles:
+    active: local # Activate the local profile (local configuration)
+
+eureka:
+  client:
+    enabled: false # Disable Eureka discovery for local setup
+
+logging:
+  level:
+    root: INFO
