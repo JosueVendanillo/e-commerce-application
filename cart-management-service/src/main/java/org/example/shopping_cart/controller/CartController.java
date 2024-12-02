@@ -1,12 +1,15 @@
 package org.example.shopping_cart.controller;
 
 
-import com.market.e_commerce_app.shopping_cart.service.CartService;
+
 import org.example.shopping_cart.model.Cart;
 import org.example.shopping_cart.model.CartItem;
+import org.example.shopping_cart.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/cart")

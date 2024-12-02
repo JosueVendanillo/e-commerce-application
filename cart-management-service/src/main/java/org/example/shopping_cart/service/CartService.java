@@ -1,7 +1,5 @@
-package com.market.e_commerce_app.shopping_cart.service;
+package org.example.shopping_cart.service;
 
-import com.market.e_commerce_app.shopping_cart.model.Cart;
-import com.market.e_commerce_app.shopping_cart.model.CartItem;
 import com.market.e_commerce_app.shopping_cart.repository.CartRepository;
 import org.example.shopping_cart.model.Cart;
 import org.springframework.stereotype.Service;

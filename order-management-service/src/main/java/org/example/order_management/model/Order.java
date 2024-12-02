@@ -1,9 +1,10 @@
 package org.example.order_management.model;
 
-import com.market.e_commerce_app.shopping_cart.model.CartItem;
+
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.example.shopping_cart.model.CartItem;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 

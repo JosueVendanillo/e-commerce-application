@@ -1,4 +1,6 @@
-package org.e-commerce;
+package org.example
+
+-commerce;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

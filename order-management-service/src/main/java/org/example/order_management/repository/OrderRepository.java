@@ -1,6 +1,6 @@
 package org.example.order_management.repository;
 
-import com.market.e_commerce_app.order_management.model.Order;
+import org.example.order_management.model.Order;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
