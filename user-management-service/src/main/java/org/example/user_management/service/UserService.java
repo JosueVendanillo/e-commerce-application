@@ -1,5 +1,7 @@
 package org.example.user_management.service;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.example.user_management.model.User;
 import org.example.user_management.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+@NoArgsConstructor
 @Service
 public class UserService {
 
@@ -17,6 +20,19 @@ public class UserService {
     private UserRepository userRepository;
 //    @Autowired
 //    private PasswordEncoder passwordEncoder;
+
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+//    public UserService(PasswordEncoder passwordEncoder) {
+//        this.passwordEncoder = passwordEncoder;
+//    }
+
+//    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+//        this.userRepository = userRepository;
+//        this.passwordEncoder = passwordEncoder;
+//    }
 
     public User register(User user){
         if (userRepository.findByUsername(user.getUsername()).isPresent()) {
@@ -73,29 +89,35 @@ public class UserService {
      * @param user The user details to update.
      * @return The updated user object.
      */
-//    public User updateUser(User user) {
-//        // Ensure the user exists before updating
-//        Optional<User> existingUser = userRepository.findById(user.getId());
-//        if (!existingUser.isPresent()) {
-//            throw new IllegalArgumentException("User not found!");
-//        }
-//
-//        // Update user details and save
-//        User updatedUser = existingUser.get();
-//        updatedUser.setEmail(user.getEmail());
-//        updatedUser.setRole(user.getRole());
-//
-//        return userRepository.save(updatedUser);
-//    }
+    public User updateUser(User user) {
+        // Ensure the user exists before updating
+        Optional<User> existingUser = userRepository.findById(user.getId());
+        if (!existingUser.isPresent()) {
+            throw new IllegalArgumentException("User not found!");
+        }
+
+        // Update user details and save
+        User updatedUser = existingUser.get();
+        updatedUser.setEmail(user.getEmail());
+        updatedUser.setRoles(user.getRoles());
+
+        return userRepository.save(updatedUser);
+    }
 
     /**
      * Delete a user by ID.
      *
-     * @param id The ID of the user to delete.
+     * @param userId The ID of the user to delete.
      */
 
-    public void deleteUser(String id) {
-        userRepository.deleteById(id);
-        System.out.println("User deleted successfully!");
+    public void deleteUser(String userId) {
+
+        if(userRepository.existsById(userId)){
+            System.out.println("User deleted successfully!");
+            userRepository.deleteById(userId);
+        }else{
+            throw new IllegalArgumentException("UserId with ID " + userId + "does not exist.");
+        }
+
     }
 }
