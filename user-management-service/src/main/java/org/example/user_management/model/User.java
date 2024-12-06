@@ -12,6 +12,7 @@ import java.util.List;
 public class User {
     @Id
     private String id;
+//    @Size(min = 4, max = 20)
     @NotBlank(message = "Username is required")
     private String username;
 
@@ -22,29 +23,6 @@ public class User {
     @NotBlank(message = "Email is required")
     private String email;
     private List<String> roles;
-//
-//    public String getUsername() {
-//        return username;
-//    }
-//
-//    public void setUsername(String username) {
-//        this.username = username;
-//    }
-//
-//    public void setPassword(String password) {
-//        this.password = password;
-//    }
-//
-//    public String getPassword() {
-//        return password;
-//    }
-//
-//    public String getId() {
-//        return id;
-//    }
-//
-//    public void setId(String id) {
-//        this.id = id;
-//    }
+
 }
 

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @NoArgsConstructor
 @Service
@@ -40,9 +41,10 @@ public class UserService {
         }
         // Encode the password before saving the user
 //        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        String uniqueId = UUID.randomUUID().toString();
 
         System.out.println(Arrays.toString(User.class.getDeclaredMethods()));
-
+        user.setId(uniqueId);
         System.out.println("Register successful!");
         return userRepository.save(user);
     }
@@ -89,35 +91,58 @@ public class UserService {
      * @param user The user details to update.
      * @return The updated user object.
      */
-    public User updateUser(User user) {
-        // Ensure the user exists before updating
-        Optional<User> existingUser = userRepository.findById(user.getId());
-        if (!existingUser.isPresent()) {
-            throw new IllegalArgumentException("User not found!");
-        }
+    public User updateUser(String userId, User updatedUser) {
+////        // Ensure the user exists before updating
+////        Optional<User> existingUser = userRepository.findById(user.getId());
+////        if (!existingUser.isPresent()) {
+////            throw new IllegalArgumentException("User not found!");
+////        }
+////
+////        // Update user details and save
+////        User updatedUser = existingUser.get();
+////        updatedUser.setEmail(user.getEmail());
+////        updatedUser.setRoles(user.getRoles());
+//
+//        return userRepository.save(updatedUser);
 
-        // Update user details and save
-        User updatedUser = existingUser.get();
-        updatedUser.setEmail(user.getEmail());
-        updatedUser.setRoles(user.getRoles());
 
-        return userRepository.save(updatedUser);
+
+        return userRepository.findById(userId).map(existinguser -> {
+
+            existinguser.setUsername(updatedUser.getUsername());
+            existinguser.setPassword(updatedUser.getPassword());
+            existinguser.setEmail(updatedUser.getEmail());
+            existinguser.setRoles(updatedUser.getRoles());
+            return userRepository.save(existinguser);
+        }).orElseThrow(()-> new RuntimeException("User not found with id " + userId));
     }
 
     /**
      * Delete a user by ID.
      *
-     * @param userId The ID of the user to delete.
+     * @param id The ID of the user to delete.
      */
 
-    public void deleteUser(String userId) {
-
-        if(userRepository.existsById(userId)){
-            System.out.println("User deleted successfully!");
-            userRepository.deleteById(userId);
-        }else{
-            throw new IllegalArgumentException("UserId with ID " + userId + "does not exist.");
+//    public void deleteUser(String userId) {
+//
+//        if(userRepository.existsById(userId)){
+//            System.out.println("User deleted successfully!");
+//            userRepository.deleteById(userId);
+//        }else{
+//            throw new IllegalArgumentException("UserId with ID " + userId + "does not exist.");
+//        }
+//
+//    }
+    public boolean deleteUserById(String id) {
+        System.out.println("Deleting user with ID: " + id);
+        if (userRepository.existsById(id)) {
+            userRepository.deleteById(id);
+            System.out.println("Delete user successful") ;
+            return true;
         }
-
+        return false;
     }
+
+
+
 }

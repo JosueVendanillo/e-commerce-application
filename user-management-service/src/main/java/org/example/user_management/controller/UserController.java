@@ -56,15 +56,31 @@ public class UserController {
 
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable("id") String userId) {
-        try{
-            userService.deleteUser(userId);
-            return ResponseEntity.ok("User with ID " + userId + " deleted successfully.");
-        }catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    @PutMapping("/update/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable String id, @RequestBody User updatedUser){
+        User updated = userService.updateUser(id,updatedUser);
+        return ResponseEntity.ok(updated);
     }
 
+
+//    @DeleteMapping("/delete/{id}")
+//    public ResponseEntity<String> deleteUser(@RequestParam("id") String userId) {
+////        try{
+//            userService.deleteUser(userId);
+//            return ResponseEntity.ok("User with ID " + userId + " deleted successfully.");
+////        }catch (Exception e) {
+////            return ResponseEntity.badRequest().body(e.getMessage());
+////        }
+//    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deleteUser(@RequestParam String id) {
+        boolean deleted = userService.deleteUserById(id);
+        if (deleted) {
+            return ResponseEntity.ok("User deleted successfully");
+        } else {
+            return ResponseEntity.status(404).body("User not found");
+        }
+    }
 
 }
