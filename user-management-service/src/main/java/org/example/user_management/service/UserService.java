@@ -84,11 +84,25 @@ public class UserService {
         return List.of();
     }
 
+    /**
+     * Search users by username or email.
+     *
+     * @param email The email to search for.
+     * @return A list of users that match the search criteria.
+     */
+    public User searchUserEmail(String email){
+        if(email.isEmpty()) {
+            System.out.println("No User found!");
+
+        }
+        return userRepository.findByEmail(email);
+    }
+
 
     /**
      * Update user details.
      *
-     * @param user The user details to update.
+     * @param userId The user details to update.
      * @return The updated user object.
      */
     public User updateUser(String userId, User updatedUser) {
@@ -116,6 +130,8 @@ public class UserService {
             return userRepository.save(existinguser);
         }).orElseThrow(()-> new RuntimeException("User not found with id " + userId));
     }
+
+
 
     /**
      * Delete a user by ID.

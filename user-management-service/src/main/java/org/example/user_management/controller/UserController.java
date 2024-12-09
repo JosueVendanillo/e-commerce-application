@@ -22,6 +22,7 @@ public class UserController {
         this.userService = userService;
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")  // Allow CORS for this method
     @PostMapping("register")
     public ResponseEntity<User> register(@RequestBody User user){
         try {
