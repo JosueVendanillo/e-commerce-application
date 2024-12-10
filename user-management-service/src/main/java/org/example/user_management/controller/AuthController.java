@@ -12,7 +12,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 public class AuthController {
 
 //    @Autowired
@@ -45,6 +45,8 @@ public class AuthController {
     @CrossOrigin(origins = "http://localhost:3000")  // Allow CORS for this method
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User loginRequest) {
+
+        System.out.println("Login attempt: " + loginRequest.getEmail());
         // Validate user credentials
         User existingUser = userService.searchUserEmail(loginRequest.getEmail());
         System.out.println(existingUser.toString());

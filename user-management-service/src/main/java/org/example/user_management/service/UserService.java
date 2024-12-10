@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import org.example.user_management.model.User;
 import org.example.user_management.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -96,6 +98,17 @@ public class UserService {
 
         }
         return userRepository.findByEmail(email);
+    }
+
+    /**
+     * Retrieves all users with pagination support.
+     *
+     * @param pageable pagination information
+     * @return a page of users
+     */
+    public Page<User> findAll(Pageable pageable) {
+        // Use the existing findAll method from JpaRepository or MongoRepository
+        return userRepository.findAll(pageable);
     }
 
 
